@@ -18,22 +18,19 @@ st.set_page_config(
 )
 
 # ─────────────────────────── CUSTOM CSS ─────────────────────────────────────
+# Catatan: warna diambil dari variabel tema bawaan Streamlit (--background-color,
+# --secondary-background-color, --text-color) alih-alih hex hardcoded, supaya
+# tampilan otomatis mengikuti pilihan Light/Dark/System di menu Settings Streamlit.
 st.markdown("""
 <style>
-    .main { background-color: #0f172a; color: #e2e8f0; }
-
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+        background: var(--secondary-background-color);
     }
     [data-testid="stSidebar"] label,
     [data-testid="stSidebar"] p,
     [data-testid="stSidebar"] span,
     [data-testid="stSidebar"] .stRadio label,
-    [data-testid="stSidebar"] .stMarkdown { color: #e2e8f0 !important; }
-
-    .stApp {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-    }
+    [data-testid="stSidebar"] .stMarkdown { color: var(--text-color) !important; }
 
     .main-title {
         background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #06b6d4 100%);
@@ -46,80 +43,79 @@ st.markdown("""
     }
     .sub-title {
         text-align: center;
-        color: #94a3b8;
+        color: var(--text-color);
+        opacity: 0.7;
         font-size: 1.05rem;
         margin-bottom: 2rem;
     }
 
     .metric-card {
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        border: 1px solid #334155;
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128,128,128,0.28);
         border-radius: 12px;
         padding: 1.2rem;
         text-align: center;
-        color: #e2e8f0;
+        color: var(--text-color);
         margin-bottom: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.08);
     }
-    .metric-card h3 { color: #94a3b8; font-size: 0.85rem; margin: 0; font-weight: 600; }
-    .metric-card .value { font-size: 2rem; font-weight: 700; color: #f1f5f9; margin: 0.5rem 0; }
-    .metric-card .label { font-size: 0.72rem; color: #64748b; margin-top: 0.2rem; }
+    .metric-card h3 { color: var(--text-color); opacity: 0.65; font-size: 0.85rem; margin: 0; font-weight: 600; }
+    .metric-card .value { font-size: 2rem; font-weight: 700; color: var(--text-color); margin: 0.5rem 0; }
+    .metric-card .label { font-size: 0.72rem; color: var(--text-color); opacity: 0.55; margin-top: 0.2rem; }
 
     .section-header {
         font-size: 1.3rem;
         font-weight: 700;
-        color: #e2e8f0;
+        color: var(--text-color);
         border-left: 4px solid #3b82f6;
         padding: 0.5rem 0 0.5rem 0.8rem;
         margin: 1.5rem 0 1rem 0;
-        background: linear-gradient(90deg, rgba(59,130,246,0.1) 0%, transparent 100%);
+        background: linear-gradient(90deg, rgba(59,130,246,0.12) 0%, transparent 100%);
         border-radius: 0 8px 8px 0;
     }
 
     .info-box {
-        background: linear-gradient(135deg, #0f172a, #1e293b);
+        background: var(--secondary-background-color);
         border-left: 4px solid #0ea5e9;
         padding: 1rem 1.2rem;
         border-radius: 8px;
         margin: 0.5rem 0;
-        color: #e2e8f0;
-        border: 1px solid #334155;
+        color: var(--text-color);
+        border: 1px solid rgba(128,128,128,0.28);
     }
-    .info-box p { color: #cbd5e1 !important; }
+    .info-box p { color: var(--text-color) !important; opacity: 0.85; }
 
     .warn-box {
-        background: linear-gradient(135deg, #0f172a, #1e293b);
+        background: var(--secondary-background-color);
         border-left: 4px solid #f59e0b;
         padding: 1rem 1.2rem;
         border-radius: 8px;
         margin: 0.5rem 0;
-        color: #e2e8f0;
-        border: 1px solid #334155;
+        color: var(--text-color);
+        border: 1px solid rgba(128,128,128,0.28);
     }
 
     .pred-default {
-        background: linear-gradient(135deg, #450a0a, #7f1d1d);
+        background: rgba(239,68,68,0.15);
         border: 2px solid #ef4444;
         border-radius: 12px;
         padding: 1.5rem;
         text-align: center;
-        color: #fecaca;
-        box-shadow: 0 4px 6px rgba(239,68,68,0.2);
+        color: var(--text-color);
+        box-shadow: 0 4px 6px rgba(239,68,68,0.15);
     }
-    .pred-default h2, .pred-default h3 { color: #fca5a5; margin-bottom: 0.5rem; }
+    .pred-default h2, .pred-default h3 { color: #ef4444; margin-bottom: 0.5rem; }
 
     .pred-safe {
-        background: linear-gradient(135deg, #14532d, #166534);
+        background: rgba(34,197,94,0.15);
         border: 2px solid #22c55e;
         border-radius: 12px;
         padding: 1.5rem;
         text-align: center;
-        color: #bbf7d0;
-        box-shadow: 0 4px 6px rgba(34,197,94,0.2);
+        color: var(--text-color);
+        box-shadow: 0 4px 6px rgba(34,197,94,0.15);
     }
-    .pred-safe h2, .pred-safe h3 { color: #86efac; margin-bottom: 0.5rem; }
-
-    p, span, div { color: #e2e8f0; }
+    .pred-safe h2, .pred-safe h3 { color: #16a34a; margin-bottom: 0.5rem; }
 
     .stButton button {
         background: linear-gradient(135deg, #3b82f6, #6366f1);
@@ -136,20 +132,12 @@ st.markdown("""
         box-shadow: 0 4px 8px rgba(59,130,246,0.3);
     }
 
-    .stTextInput input,
-    .stNumberInput input,
-    .stSelectbox select {
-        background-color: #1e293b !important;
-        color: #e2e8f0 !important;
-        border: 1px solid #334155 !important;
-        border-radius: 8px;
-    }
-
-    .stTabs [data-baseweb="tab-list"] { background-color: #0f172a; border-radius: 8px 8px 0 0; }
-    .stTabs [data-baseweb="tab"] { color: #94a3b8; background-color: transparent; }
+    .stTabs [data-baseweb="tab-list"] { background-color: var(--secondary-background-color); border-radius: 8px 8px 0 0; }
+    .stTabs [data-baseweb="tab"] { color: var(--text-color); opacity: 0.6; background-color: transparent; }
     .stTabs [data-baseweb="tab"][aria-selected="true"] {
-        color: #e2e8f0;
-        background-color: #1e293b;
+        color: var(--text-color);
+        opacity: 1;
+        background-color: var(--secondary-background-color);
         border-bottom: 2px solid #3b82f6;
     }
 </style>
@@ -706,27 +694,27 @@ def predict_row(
 st.markdown("""
 <style>
     .pred-warn {
-        background: linear-gradient(135deg, #451a03, #78350f);
+        background: rgba(245,158,11,0.15);
         border: 2px solid #f59e0b;
         border-radius: 12px;
         padding: 1.5rem;
         text-align: center;
-        color: #fde68a;
-        box-shadow: 0 4px 6px rgba(245,158,11,0.2);
+        color: var(--text-color);
+        box-shadow: 0 4px 6px rgba(245,158,11,0.15);
     }
-    .pred-warn h2, .pred-warn h3 { color: #fbbf24; margin-bottom: 0.5rem; }
+    .pred-warn h2, .pred-warn h3 { color: #d97706; margin-bottom: 0.5rem; }
 
     .step-card {
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        border: 1px solid #334155;
+        background: var(--secondary-background-color);
+        border: 1px solid rgba(128,128,128,0.28);
         border-radius: 12px;
         padding: 1.2rem 1.3rem;
         margin-bottom: 0.5rem;
         min-height: 150px;
     }
     .step-card .step-icon { font-size: 1.6rem; }
-    .step-card .step-title { font-weight: 700; color: #f1f5f9; margin: 0.4rem 0; font-size: 1.05rem; }
-    .step-card .step-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.45; }
+    .step-card .step-title { font-weight: 700; color: var(--text-color); margin: 0.4rem 0; font-size: 1.05rem; }
+    .step-card .step-desc { font-size: 0.85rem; color: var(--text-color); opacity: 0.7; line-height: 1.45; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1186,7 +1174,7 @@ elif page == "📁 Cek Banyak Data (CSV)":
     st.title("📁 Cek Banyak Data Sekaligus (CSV)")
     st.markdown(
         "Jika Anda memiliki data banyak calon peminjam sekaligus, unggah file CSV di sini untuk "
-        "memeriksa risikonya secara massal — tidak perlu mengisi form satu per satu."
+        "memeriksa risikonya secara massal, tidak perlu mengisi form satu per satu."
     )
 
     with st.expander("📥 Langkah 1 — Download Template", expanded=True):
