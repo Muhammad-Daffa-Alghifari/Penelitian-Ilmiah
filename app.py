@@ -743,13 +743,13 @@ def friendly_verdict(prob: float):
 
 # ─────────────────────────── SIDEBAR ────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🏦 Cek Risiko Pinjaman")
+    st.markdown("## 🏦 Prediksi Risiko Pinjaman")
     st.markdown("---")
     page = st.radio(
         "Menu",
         ["🏠 Beranda",
-         "🔍 Cek Risiko Pinjaman",
-         "📁 Cek Banyak Data (CSV)",
+         "🔍 Prediksi Manual",
+         "📁 Prediksi Banyak Data (CSV)",
          "📖 Tentang Aplikasi"],
         label_visibility="collapsed",
     )
@@ -761,7 +761,7 @@ with st.sidebar:
 #  HALAMAN: BERANDA
 # ════════════════════════════════════════════════════════════════════════════
 if page == "🏠 Beranda":
-    st.markdown('<div class="main-title">🏦 Cek Risiko Pinjaman</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">🏦 Prediksi Risiko Pinjaman</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sub-title">Perkirakan apakah sebuah pinjaman berpotensi lancar atau gagal '
         'dibayar?</div>',
@@ -781,7 +781,7 @@ if page == "🏠 Beranda":
     st.markdown("### Bagaimana cara memakainya?")
     steps = [
         ("1️⃣", "Isi Data Peminjam", "Masukkan jumlah pinjaman, pendapatan, dan beberapa info dasar lain tentang calon peminjam."),
-        ("2️⃣", "Klik “Cek Risiko Sekarang”", "Sistem akan membandingkan data tersebut dengan pola dari jutaan data pinjaman sebelumnya."),
+        ("2️⃣", "Klik “Prediksi Sekarang”", "Sistem akan membandingkan data tersebut dengan pola dari jutaan data pinjaman sebelumnya."),
         ("3️⃣", "Lihat Hasil & Penjelasannya", "Anda akan mendapat perkiraan risiko (Rendah / Sedang / Tinggi) beserta penjelasan sederhananya."),
     ]
     step_cols = st.columns(3)
@@ -821,8 +821,8 @@ if page == "🏠 Beranda":
 
     st.markdown("### 🚀 Mulai Sekarang")
     st.info(
-        "👈 Pilih **“🔍 Cek Risiko Pinjaman”** di menu sebelah kiri untuk memeriksa satu calon "
-        "peminjam, atau **“📁 Cek Banyak Data (CSV)”** bila Anda ingin memeriksa banyak data "
+        "👈 Pilih **“🔍 Prediksi Manual”** di menu sebelah kiri untuk memeriksa satu calon "
+        "peminjam, atau **“📁 Prediksi Banyak Data (CSV)”** bila Anda ingin memeriksa banyak data "
         "sekaligus dari sebuah file."
     )
 
@@ -830,10 +830,10 @@ if page == "🏠 Beranda":
 # ════════════════════════════════════════════════════════════════════════════
 #  HALAMAN: CEK RISIKO PINJAMAN (Prediksi Manual)
 # ════════════════════════════════════════════════════════════════════════════
-elif page == "🔍 Cek Risiko Pinjaman":
-    st.title("🔍 Cek Risiko Pinjaman")
+elif page == "🔍 Prediksi Manual":
+    st.title("🔍 Prediksi Manual")
     st.markdown(
-        "Isi data calon peminjam di bawah ini, lalu klik tombol **Cek Risiko Sekarang** untuk "
+        "Isi data calon peminjam di bawah ini, lalu klik tombol **Prediksi Sekarang** untuk "
         "melihat perkiraan apakah pinjaman ini berpotensi lancar atau gagal dibayar. "
         "**Catatan:** perkiraan ini berdasarkan kondisi saat pengajuan, bukan setelah pinjaman berjalan."
     )
@@ -1122,7 +1122,7 @@ elif page == "🔍 Cek Risiko Pinjaman":
     }
 
     st.markdown("---")
-    if st.button("🔍 Cek Risiko Sekarang", type="primary", width="stretch"):
+    if st.button("🔍 Prediksi Sekarang", type="primary", width="stretch"):
         label, prob, is_demo = predict_row(
             model_choice,
             models[model_choice],
@@ -1168,10 +1168,10 @@ elif page == "🔍 Cek Risiko Pinjaman":
 
 
 # ════════════════════════════════════════════════════════════════════════════
-#  HALAMAN: CEK BANYAK DATA (CSV)
+#  HALAMAN: PREDIKSI BANYAK DATA (CSV)
 # ════════════════════════════════════════════════════════════════════════════
-elif page == "📁 Cek Banyak Data (CSV)":
-    st.title("📁 Cek Banyak Data Sekaligus (CSV)")
+elif page == "📁 Prediksi Banyak Data (CSV)":
+    st.title("📁 Prediksi Banyak Data Sekaligus (CSV)")
     st.markdown(
         "Jika Anda memiliki data banyak calon peminjam sekaligus, unggah file CSV di sini untuk "
         "memeriksa risikonya secara massal, tidak perlu mengisi form satu per satu."
@@ -1282,7 +1282,7 @@ elif page == "📁 Cek Banyak Data (CSV)":
                 for col in missing_cols:
                     df_up[col] = np.nan
 
-            if st.button("🚀 Cek Risiko Semua Data", type="primary"):
+            if st.button("🚀 Prediksi Risiko Semua Data", type="primary"):
                 models, preprocessor, default_vals, model_thresholds, ensemble_weights, _ = load_models()
                 model_obj = models[model_batch]
 
